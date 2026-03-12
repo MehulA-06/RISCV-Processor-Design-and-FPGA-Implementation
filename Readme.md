@@ -35,7 +35,7 @@ The processor follows a **single-cycle datapath architecture**, meaning each ins
 | **Data Memory** | Handles load/store instructions |
 | **Performance Counter** | Tracks cycle and instruction counts |
 
-![Single Cycle RISCV Datapath](Images/Single_Cycle_RISCV_Datapath.png)
+![Single Cycle RISCV Datapath](Single Cycle RV32I/Images/Single_Cycle_RISCV_Datapath.png)
 
 ---
 
