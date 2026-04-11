@@ -1,4 +1,4 @@
-# RISC-V RV32I Single-Cycle Processor on ZedBoard (Zynq-7000 FPGA)
+# RISC-V RV32I Single-Cycle and Pipeline Processor on ZedBoard (Zynq-7000 FPGA)
 
 ## Overview
 This project implements a **32-bit RISC-V RV32I single-cycle processor** in **Verilog HDL** and deploys it on the **ZedBoard (Zynq-7000 FPGA)**. The processor executes instructions in a single clock cycle and supports a subset of the **RV32I instruction set architecture**.
@@ -37,6 +37,37 @@ The processor follows a **single-cycle datapath architecture**, meaning each ins
 
 ![Single Cycle RISCV Datapath](Single%20Cycle%20RV32I/Images/Single_Cycle_RISCV_Datapath.png)
 
+
+# Architecture
+
+The processor follows a **5-stage pipelined datapath architecture**, enabling multiple instructions to be processed simultaneously across different stages (Fetch, Decode, Execute, Memory, Writeback).
+
+### Core Modules
+
+| Module | Description |
+|--------|------------|
+| **RISCV_Top** | Top-level module integrating all pipeline stages |
+| **PC** | Holds address of next instruction |
+| **fetch_cycle** | Fetches instruction and updates program counter |
+| **Inst_memory** | Stores program instructions |
+| **decode_cycle** | Decodes instruction and reads register values |
+| **Reg_file** | 32 registers (x0–x31) |
+| **control_unit** | Generates control signals based on opcode |
+| **main_decoder** | Produces high-level control signals |
+| **ALU_decoder** | Generates ALU control signals |
+| **Sign_extend** | Extracts and sign-extends immediates |
+| **execute_cycle** | Performs ALU operations and branch decisions |
+| **ALU** | Performs arithmetic and logical operations |
+| **forwarding_unit** | Resolves data hazards using forwarding |
+| **hazard_unit** | Detects and handles pipeline hazards (stall/flush) |
+| **memory_cycle** | Handles memory access stage |
+| **Data_memory** | Handles load/store instructions |
+| **writeback_cycle** | Writes results back to register file |
+| **Mux** | Selects between multiple data sources |
+| **PerformanceCounter** | Tracks cycle and instruction counts |
+| **RISCV_Testbench** | Testbench for simulation and verification |
+
+![Pipeline RISCV Datapath](Pipeline%20RV32I/Images/5%20stage%20pipeline%20datapath.png)
 ---
 
 # Supported Instruction Set
